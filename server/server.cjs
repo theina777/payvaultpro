@@ -49,7 +49,8 @@ app.post('/api/employees', (req, res) => {
 
 app.use(express.static(path.join(__dirname, '../dist')));
 
-app.get('*', (req, res) => {
+// Fallback for React Router (bypasses Express 5 strict wildcard parsing)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
