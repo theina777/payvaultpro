@@ -155,20 +155,19 @@ export default function Dashboard({ currentUser, accounts, setAccounts, onLogout
 
         {activeTab === 'dashboard' && (
           <div className="animate-fade-in">
-            {/* Same Dashboard UI as before */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
-              <div className="glass-panel stat-card interactive">
+              <div className="glass-panel stat-card interactive" style={{ opacity: 1 }}>
                 <span className="stat-title">Total Employees</span>
-                <span className="stat-value">{employees.length}</span>
+                <span className="stat-value">{Array.isArray(employees) ? employees.length : 0}</span>
               </div>
-              <div className="glass-panel stat-card interactive">
+              <div className="glass-panel stat-card interactive" style={{ opacity: 1 }}>
                 <span className="stat-title">Total Payout</span>
-                <span className="stat-value">${employees.reduce((a,e) => a + calculateNet(e.basicPay, e.otHours), 0).toFixed(2)}</span>
+                <span className="stat-value">${(Array.isArray(employees) ? employees.reduce((a,e) => a + calculateNet(e.basicPay||0, e.otHours||0), 0) : 0).toFixed(2)}</span>
               </div>
-              <div className="glass-panel stat-card interactive">
+              <div className="glass-panel stat-card interactive" style={{ opacity: 1 }}>
                 <span className="stat-title">Average Pay</span>
                 <span className="stat-value">
-                  ${employees.length > 0 ? (employees.reduce((a,e) => a + calculateNet(e.basicPay, e.otHours), 0) / employees.length).toFixed(2) : "0.00"}
+                  ${(Array.isArray(employees) && employees.length > 0 ? (employees.reduce((a,e) => a + calculateNet(e.basicPay||0, e.otHours||0), 0) / employees.length) : 0).toFixed(2)}
                 </span>
               </div>
             </div>
