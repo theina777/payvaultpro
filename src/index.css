@@ -5,7 +5,7 @@
   --bg-panel: rgba(13, 22, 40, 0.75);
   --border-color: rgba(59, 130, 246, 0.3);
   --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
+  --text-secondary: #e2e8f0;
   --accent: #3b82f6;
   --accent-glow: rgba(59, 130, 246, 0.5);
   --danger: #ef4444;
@@ -243,7 +243,7 @@ body {
 }
 
 .stat-title {
-  color: var(--accent);
+  color: #93c5fd;
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;

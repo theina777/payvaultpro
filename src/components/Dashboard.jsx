@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LogOut, Users, Plus, LayoutDashboard, Receipt, DollarSign, Award, Clock, Printer, Settings } from 'lucide-react';
+import { LogOut, Users, Plus, LayoutDashboard, Receipt, IndianRupee, Award, Clock, Printer, Settings } from 'lucide-react';
 import { calculateGross, calculateNet, calculateTax } from '../lib/payrollLogic';
 
 export default function Dashboard({ currentUser, accounts, setAccounts, onLogout }) {
@@ -114,7 +114,7 @@ export default function Dashboard({ currentUser, accounts, setAccounts, onLogout
       {/* Sidebar - hidden when printing */}
       <div className="sidebar glass-panel hide-on-print" style={{ borderRadius: 0, borderTop: 'none', borderBottom: 'none', borderLeft: 'none' }}>
         <div className="sidebar-brand">
-          <div style={{ background: 'var(--accent)', padding: 8, borderRadius: 8 }}><Receipt size={24} color="white" /></div>
+          <div style={{ background: 'var(--accent)', padding: 8, borderRadius: 8 }}><IndianRupee size={24} color="white" /></div>
           PayVaultPro
         </div>
 
@@ -162,12 +162,12 @@ export default function Dashboard({ currentUser, accounts, setAccounts, onLogout
               </div>
               <div className="glass-panel stat-card interactive" style={{ opacity: 1 }}>
                 <span className="stat-title">Total Payout</span>
-                <span className="stat-value">${(Array.isArray(employees) ? employees.reduce((a,e) => a + calculateNet(e.basicPay||0, e.otHours||0), 0) : 0).toFixed(2)}</span>
+                <span className="stat-value">₹{(Array.isArray(employees) ? employees.reduce((a,e) => a + calculateNet(e.basicPay||0, e.otHours||0), 0) : 0).toFixed(2)}</span>
               </div>
               <div className="glass-panel stat-card interactive" style={{ opacity: 1 }}>
                 <span className="stat-title">Average Pay</span>
                 <span className="stat-value">
-                  ${(Array.isArray(employees) && employees.length > 0 ? (employees.reduce((a,e) => a + calculateNet(e.basicPay||0, e.otHours||0), 0) / employees.length) : 0).toFixed(2)}
+                  ₹{(Array.isArray(employees) && employees.length > 0 ? (employees.reduce((a,e) => a + calculateNet(e.basicPay||0, e.otHours||0), 0) / employees.length) : 0).toFixed(2)}
                 </span>
               </div>
             </div>
@@ -202,7 +202,7 @@ export default function Dashboard({ currentUser, accounts, setAccounts, onLogout
             {employees.length === 0 ? <p>No employees found.</p> : employees.map(emp => (
               <div key={emp.id} className="flex-between interactive" style={{ padding: '1rem', borderBottom: '1px solid var(--border-color)', transition: 'background 0.2s', '&:hover': { background: 'rgba(255,255,255,0.05)' } }}>
                 <div><strong>{emp.name}</strong> <span style={{color: 'var(--text-secondary)'}}>(ID: {emp.id})</span></div>
-                <div style={{ color: 'var(--success)' }}>Net: ${calculateNet(emp.basicPay, emp.otHours).toFixed(2)}</div>
+                <div style={{ color: 'var(--success)' }}>Net: ₹{calculateNet(emp.basicPay, emp.otHours).toFixed(2)}</div>
               </div>
             ))}
           </div>
@@ -239,19 +239,19 @@ export default function Dashboard({ currentUser, accounts, setAccounts, onLogout
                 <div style={{ marginTop: '2rem' }}>
                   <div className="payslip-row">
                     <span className="print-text">Basic Pay</span>
-                    <span className="print-text-dark">${activePayslip.basicPay.toFixed(2)}</span>
+                    <span className="print-text-dark">₹{activePayslip.basicPay.toFixed(2)}</span>
                   </div>
                   <div className="payslip-row">
                     <span className="print-text">Overtime ({activePayslip.otHours} hrs)</span>
-                    <span style={{ color: 'var(--success)' }} className="print-text-dark">+ ${(activePayslip.otHours * 50.0).toFixed(2)}</span>
+                    <span style={{ color: 'var(--success)' }} className="print-text-dark">+ ₹{(activePayslip.otHours * 50.0).toFixed(2)}</span>
                   </div>
                   <div className="payslip-row">
                     <span className="print-text">Tax Deduction</span>
-                    <span style={{ color: 'var(--danger)' }} className="print-text-dark">- ${calculateTax(calculateGross(activePayslip.basicPay, activePayslip.otHours)).toFixed(2)}</span>
+                    <span style={{ color: 'var(--danger)' }} className="print-text-dark">- ₹{calculateTax(calculateGross(activePayslip.basicPay, activePayslip.otHours)).toFixed(2)}</span>
                   </div>
                   <div className="payslip-row payslip-total">
                     <span className="print-text-dark">Net Pay</span>
-                    <span className="print-text-dark">${calculateNet(activePayslip.basicPay, activePayslip.otHours).toFixed(2)}</span>
+                    <span className="print-text-dark">₹{calculateNet(activePayslip.basicPay, activePayslip.otHours).toFixed(2)}</span>
                   </div>
                 </div>
               </div>
