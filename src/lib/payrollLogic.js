@@ -1,7 +1,10 @@
-export const OT_RATE = 50.0;
+// OT Rate formula: 1.5x the employee's hourly rate
+// Hourly rate = Basic Pay / 200 (standard monthly working hours)
+export const getOTRate = (basicPay) => (parseFloat(basicPay) / 200) * 1.5;
 
 export const calculateGross = (basicPay, otHours) => {
-  return parseFloat(basicPay) + (parseFloat(otHours) * OT_RATE);
+  const otRate = getOTRate(basicPay);
+  return parseFloat(basicPay) + (parseFloat(otHours) * otRate);
 };
 
 export const calculateTax = (gross) => {
